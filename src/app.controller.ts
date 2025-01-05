@@ -5,6 +5,6 @@ export class AppController {
   @Get()
   @Render('index')
   root() {
-    return { message: 'Hello world!asdasd' };
+    return { message: 'Pagina de Apresentação (Landing page)' };
   }
 }

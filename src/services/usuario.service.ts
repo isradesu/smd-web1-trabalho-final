@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Usuario } from '../models/usuario.model';
 import { FindOptionsWhere } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
@@ -23,7 +24,10 @@ export class UsuarioService {
     return this.usuarioRepository.findOneBy({ login } as FindOptionsWhere<Usuario>); 
   }
 
-  create(usuario: Usuario): Promise<Usuario> {    
+  async create(usuario: Usuario): Promise<Usuario> {    
+
+    const saltOrRounds = 10; 
+    usuario.senha = await bcrypt.hash(usuario.senha, saltOrRounds);
     return this.usuarioRepository.save(usuario);
   }
 

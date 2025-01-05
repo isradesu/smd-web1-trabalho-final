@@ -1,5 +1,6 @@
 import { Controller, Post, Body, Session, Get, Render, Res } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
+import * as bcrypt from 'bcrypt';
 //import { Usuario } from '../models/usuario.model';
 import { Response } from 'express';
 
@@ -15,13 +16,19 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() { login, senha }: { login: string, senha: string }, @Session() session: Record<string, any>, @Res() res: Response) {
-    const usuario = await this.usuarioService.findOneByLogin(login);
-    if (usuario && usuario.senha === senha) {
+    const usuario = await this.usuarioService.findOneByLogin(login); 
+    
+    //if (usuario && usuario.senha === senha) {
+      if (await this.validatePassword(senha,usuario.senha)) {
       session.usuarioId = usuario.id;
       res.redirect(`/usuarios/${usuario.id}`);
     } else {
       res.send('Credenciais inválidas');
     }
+  }
+  
+  private async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
   }
 
   @Post('logout')

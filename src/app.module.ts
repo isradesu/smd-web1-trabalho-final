@@ -17,7 +17,7 @@ import * as session from 'express-session';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'root',
+      username: 'postgres',
       password: '123',
       database: 'ecommerce',
       entities: [Usuario, Venda, Categoria, Produto, VendaProduto],

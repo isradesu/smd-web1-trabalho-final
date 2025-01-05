@@ -17,9 +17,8 @@ export class AuthController {
   @Post('login')
   async login(@Body() { login, senha }: { login: string, senha: string }, @Session() session: Record<string, any>, @Res() res: Response) {
     const usuario = await this.usuarioService.findOneByLogin(login); 
-    
-    //if (usuario && usuario.senha === senha) {
-      if (await this.validatePassword(senha,usuario.senha)) {
+       
+    if (await this.validatePassword(senha,usuario.senha)) {
       session.usuarioId = usuario.id;
       res.redirect(`/usuarios/${usuario.id}`);
     } else {

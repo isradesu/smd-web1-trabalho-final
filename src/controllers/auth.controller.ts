@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Session, Get, Render, Res } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
-import { Usuario } from '../models/usuario.model';
+//import { Usuario } from '../models/usuario.model';
 import { Response } from 'express';
 
 @Controller('auth')

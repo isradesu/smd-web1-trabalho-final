@@ -24,6 +24,7 @@ export class UsuarioService {
   }
 
   create(usuario: Usuario): Promise<Usuario> {
+    console.log(usuario)
     return this.usuarioRepository.save(usuario);
   }
 

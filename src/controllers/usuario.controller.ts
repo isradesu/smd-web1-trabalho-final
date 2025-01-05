@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Render, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Render, Res } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario.model';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -38,13 +38,13 @@ export class UsuarioController {
     res.redirect('/usuarios');
   }
 
-  @Put(':id')
+  @Post('update/:id')
   async update(@Param('id') id: number, @Body() usuario: Usuario, @Res() res: Response) {
     await this.usuarioService.update(id, usuario);
     res.redirect(`/usuarios/${id}`);
   }
 
-  @Delete(':id')
+  @Post('delete/:id')
   async remove(@Param('id') id: number, @Res() res: Response) {
     await this.usuarioService.remove(id);
     res.redirect('/auth/login');

@@ -23,8 +23,7 @@ export class UsuarioService {
     return this.usuarioRepository.findOneBy({ login } as FindOptionsWhere<Usuario>); 
   }
 
-  create(usuario: Usuario): Promise<Usuario> {
-    console.log(usuario)
+  create(usuario: Usuario): Promise<Usuario> {    
     return this.usuarioRepository.save(usuario);
   }
 

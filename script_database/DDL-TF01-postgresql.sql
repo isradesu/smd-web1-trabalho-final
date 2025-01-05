@@ -5,7 +5,7 @@ create table usuario (
   login varchar(150) not null unique,  
   senha varchar(255) not null,
   endereco varchar(255),
-  administrador boolean not null, 
+  administrador boolean default false, 
 
   criado_em timestamp default current_timestamp 
 );

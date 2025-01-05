@@ -6,8 +6,7 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-  <div class="container">
-    <p>ID do usuário: {{id}}</p>
+  <div class="container">    
     <h1>Perfil do Usuário</h1>
     <form action="/usuarios/update/{{id}}" method="POST">      
       <input type="text" name="nome" value="{{nome}}" placeholder="Nome" required />
@@ -19,6 +18,9 @@
     </form>
     <form action="/usuarios/delete/{{id}}" method="POST" style="margin-top: 20px;">
       <button type="submit" style="background-color: #d9534f;">Excluir Conta</button>
+    </form>
+    <form action="/auth/logout" method="POST" style="margin-top: 20px;">
+      <button type="submit" style="background-color: #f0ad4e;">Logout</button>
     </form>
   </div>
 </body>

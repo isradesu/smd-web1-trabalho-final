@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Session, Get, Render, Res } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 import * as bcrypt from 'bcrypt';
-//import { Usuario } from '../models/usuario.model';
 import { Response } from 'express';
 
 @Controller('auth')
@@ -10,7 +9,10 @@ export class AuthController {
 
   @Get('login')
   @Render('auth/login')
-  showLogin() {
+  showLogin(@Session() session: Record<string, any>, @Res() res: Response) {
+    if (session.usuarioId) {
+      return res.redirect(`/usuarios/${session.usuarioId}`);
+    }
     return;
   }
 
@@ -18,7 +20,7 @@ export class AuthController {
   async login(@Body() { login, senha }: { login: string, senha: string }, @Session() session: Record<string, any>, @Res() res: Response) {
     const usuario = await this.usuarioService.findOneByLogin(login); 
        
-    if (await this.validatePassword(senha,usuario.senha)) {
+    if (await this.validatePassword(senha, usuario.senha)) {
       session.usuarioId = usuario.id;
       res.redirect(`/usuarios/${usuario.id}`);
     } else {

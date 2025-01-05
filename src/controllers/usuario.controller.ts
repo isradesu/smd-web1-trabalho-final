@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Param, Render, Res } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Render, Res, Session, Req } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario.model';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -20,14 +20,20 @@ export class UsuarioController {
 
   @Get('edit/:id')
   @Render('usuario/edit')
-  async showEdit(@Param('id') id: number) {
+  async showEdit(@Param('id') id: number, @Session() session: Record<string, any>, @Res() res: Response) {
+    if (!session.usuarioId) {
+      return res.redirect('/auth/login');
+    }
     const usuario = await this.usuarioService.findOne(id);
     return usuario;
   }
 
   @Get(':id')
   @Render('usuario/profile')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: number, @Session() session: Record<string, any>, @Res() res: Response) {
+    if (!session.usuarioId) {
+      return res.redirect('/auth/login');
+    }
     const usuario = await this.usuarioService.findOne(id);
     return usuario;
   }

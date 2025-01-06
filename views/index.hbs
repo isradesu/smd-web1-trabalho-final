@@ -5,6 +5,15 @@
     <title>App</title>
   </head>
   <body>
-    {{ message }}
+    {{#if session.usuarioId}}
+      <form action="/auth/logout" method="POST" style="margin-top: 20px;">
+          <button type="submit" style="background-color: #f0ad4e;">Logout</button>
+      </form>
+    {{else}}
+      <a href="/auth/login" target="_blank">Login</a>
+    {{/if}}
+   
+    <br>
+    {{message}}
   </body>
 </html>

@@ -1,58 +1,53 @@
-import { Controller, Get, Post, Body, Param, Render, Res, Session, Req } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Render, Res, Session } from '@nestjs/common';
 import { UsuarioService } from '../services/usuario.service';
 import { Usuario } from '../models/usuario.model';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 
 @Controller('usuarios')
 export class UsuarioController {
   constructor(private readonly usuarioService: UsuarioService) {}
 
   @Get()
-  findAll(): Promise<Usuario[]> {
-    return this.usuarioService.findAll();
+  encontrarTodos(): Promise<Usuario[]> {
+    return this.usuarioService.encontrarTudo();
   }
 
-  @Get('create')
-  @Render('usuario/create')
-  showCreate() {
+  @Get('criar')
+  @Render('usuario/criar')
+  mostrarCriar() {
     return;
   }
 
-  @Get('edit/:id')
-  @Render('usuario/edit')
-  async showEdit(@Param('id') id: number, @Session() session: Record<string, any>, @Res() res: Response) {
-    if (!session.usuarioId) {
-      return res.redirect('/auth/login');
-    }
-    const usuario = await this.usuarioService.findOne(id);
-    return usuario;
-  }
-
   @Get(':id')
-  @Render('usuario/profile')
-  async findOne(@Param('id') id: number, @Session() session: Record<string, any>, @Res() res: Response) {
+  @Render('usuario/perfil')
+  async encontrarUm(@Param('id') id: number, @Session() session: Record<string, any>, @Res() res: Response) {
     if (!session.usuarioId) {
-      return res.redirect('/auth/login');
+      return res.redirect('/autenticacao/login');
     }
-    const usuario = await this.usuarioService.findOne(id);
+    const usuario = await this.usuarioService.encontrarUm(id);
     return usuario;
   }
 
   @Post()
-  async create(@Body() usuario: Usuario, @Res() res: Response) {
-    await this.usuarioService.create(usuario);   
-    res.redirect('/usuarios');
-  }
+  async criar(@Body() usuario: Usuario, @Res() res: Response) {
+    
+    usuario.administrador = usuario.administrador == 'on' ? true : false;
+     
+    await this.usuarioService.criar(usuario);
 
-  @Post('update/:id')
-  async update(@Param('id') id: number, @Body() usuario: Usuario, @Res() res: Response) {
-    await this.usuarioService.update(id, usuario);
+    return res.redirect('/autenticacao/login');
+  }
+  
+  @Post('atualizar/:id')
+  async atualizar(@Param('id') id: number, @Body() usuario: Usuario, @Res() res: Response) {
+    await this.usuarioService.atualizar(id, usuario);
     res.redirect(`/usuarios/${id}`);
   }
-
-  @Post('delete/:id')
-  async remove(@Param('id') id: number, @Res() res: Response) {
-    await this.usuarioService.remove(id);
-    res.redirect('/auth/login');
+   
+  @Post('deletar/:id')
+  async remover(@Session() session: Record<string, any>, @Param('id') id: number, @Res() res: Response) {
+    await this.usuarioService.remover(id);
+    session.usuarioId = null;
+    res.redirect('/autenticacao/login');
   }
 }

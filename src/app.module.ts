@@ -1,15 +1,24 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import * as session from 'express-session';
+
 import { AppController } from './app.controller';
 import { Usuario } from './models/usuario.model';
 import { Venda } from './models/venda.model';
 import { Categoria } from './models/categoria.model';
 import { Produto } from './models/produto.model';
-import { VendaProduto } from './models/venda_produto.model';
+import { VendaProduto } from './models/vendaProduto.model';
 import { UsuarioService } from './services/usuario.service';
+import { ProdutoService } from './services/produto.service';
+import { CategoriaService } from './services/categoria.service';
 import { UsuarioController } from './controllers/usuario.controller';
-import { AuthController } from './controllers/auth.controller';
-import * as session from 'express-session';
+import { ProdutoController } from './controllers/produto.controller';
+import { CategoriaController } from './controllers/categoria.controller';
+import { AutenticacaoController } from './controllers/autenticacao.controller';
+import { AdministradorController } from './controllers/administrador.controller';
+import { ClienteController } from './controllers/cliente.controller';
 
 @Module({
   imports: [
@@ -24,13 +33,23 @@ import * as session from 'express-session';
       synchronize: true,
     }),
     TypeOrmModule.forFeature([Usuario, Venda, Categoria, Produto, VendaProduto]),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'public'), // Serve a pasta public
+    }),
   ],
-  controllers: [AppController, UsuarioController, AuthController],
-  providers: [UsuarioService],
+  controllers: [
+    AppController, 
+    UsuarioController, 
+    AutenticacaoController, 
+    ClienteController, 
+    AdministradorController, 
+    ProdutoController, 
+    CategoriaController
+  ],
+  providers: [UsuarioService, ProdutoService, CategoriaService],
 })
-
-
 export class AppModule {
+  constructor() {} 
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(session({

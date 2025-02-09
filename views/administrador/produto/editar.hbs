@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Editar Produto</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Editar Produto</h1>
+    <form action="/produto/atualizar/{{produto.id}}" method="POST">
+	 <div>
+			<label for="descricao">Descrição</label>
+			<input type="text" name="descricao" id="descricao" value="{{produto.descricao}}" placeholder="Descrição do Produto" required />
+	  </div>
+	  
+	  <div>
+			<label for="preco">Preço</label>
+			<input type="number" name="preco" id="preco" value="{{produto.preco}}" step="0.01" placeholder="Preço" required />
+	  </div>
+	  
+	  <div>
+		<label for="quantidade">Quantidade</label>
+		<input type="number" name="quantidade" id="quantidade" value="{{produto.quantidade}}" placeholder="Quantidade" required />
+	  </div>
+      
+      <label for="categoria">Categoria:</label>
+	  <select name="categoria" id="categoria" required>
+	  {{#each categorias}}
+		<option value="{{this.id}}" {{#if this.isSelected}}selected{{/if}}>
+		  {{this.nome}}
+		</option>
+	  {{/each}}
+	</select>
+      
+		
+      <button type="submit">Salvar</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,19 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
   <head>
     <meta charset="utf-8" />
     <title>App</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    {{#if session.usuarioId}}
-      <form action="/auth/logout" method="POST" style="margin-top: 20px;">
-          <button type="submit" style="background-color: #f0ad4e;">Logout</button>
-      </form>
-    {{else}}
-      <a href="/auth/login" target="_blank">Login</a>
-    {{/if}}
-   
+    <ul>
+      <li>
+        {{#if session.usuarioId}}
+          <form action="/autenticacao/logout" method="POST" style="margin-top: 20px;">
+              <button type="submit" style="background-color: #f0ad4e;">Logout</button>
+          </form>
+        {{else}}
+          <a href="/autenticacao/login" target="_blank">Login</a>
+        {{/if}}
+      </li>
+
+      <li>
+        <a href="/usuarios/criar" target="_blank">Criar usuário</a>
+      </li>
+    </ul>
+
+    <h2>Produtos Disponíveis</h2>
+<div class="produtos-container">
+  {{#if produtos}}
+    <div class="produtos-list">
+      {{#each produtos}}
+        <div class="produto">
+          <!-- Placeholder de Imagem -->
+          <div class="produto-imagem">
+            <img src="https://via.placeholder.com/150" alt="Imagem do produto">
+          </div>
+
+          <p><strong>Descrição:</strong> {{this.descricao}}</p>
+          <p><strong>Preço:</strong> R${{this.preco}}</p>
+          <p><strong>Quantidade:</strong> {{this.quantidade}}</p>
+        </div>
+      {{/each}}
+    </div>
+  {{else}}
+    <span>Nenhum registro encontrado.</span>
+  {{/if}}
+</div>
+
+
+
     <br>
-    {{message}}
   </body>
 </html>

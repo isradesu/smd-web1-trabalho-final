@@ -1,16 +1,17 @@
 import { Controller, Get, Render, Session } from '@nestjs/common';
+import { ProdutoService } from './services/produto.service';
 
 @Controller()
 export class AppController {
+  constructor(private readonly produtoService: ProdutoService) {}
+
   @Get()
   @Render('index')
-  root(@Session() session: Record<string, any>) {    
-
+  async root(@Session() session: Record<string, any>) {
+    const produtos = await this.produtoService.encontrarTudo();
     return { 
-      message: 'Pagina de Apresentação (Landing page)' ,
+      produtos,
       session
     };
   }
 }
-
-

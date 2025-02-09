@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Produtos</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Produtos</h1>
+  </header>
+  <main class="container">
+    <ul>
+      <li>
+        <a href="/produto/criar">Adicionar Produto</a>
+      </li>
+    </ul>
+
+    <form action="/produto/pesquisar" method="GET">
+      <label for="pesquisa">Pesquisar</label>
+      <input type="search" id="pesquisa" name="conteudo">
+      <button type="submit">Buscar</button>
+    </form>
+
+    <div>
+      <h2>Lista de Produtos</h2>
+      {{#if produtos.length}}
+        <table border="1">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Descrição</th>
+              <th>Preço</th>
+              <th>Quantidade</th>             
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each produtos}}
+              <tr>
+                <td>{{this.id}}</td>
+                <td>{{this.descricao}}</td>
+                <td>{{this.preco}}</td>
+                <td>{{this.quantidade}}</td>                
+                <td>
+                  <a href="/produto/editar/{{this.id}}">Editar</a> |
+                  <a href="/produto/deletar/{{this.id}}" onclick="return confirm('Tem certeza que deseja excluir?')">Excluir</a>
+                </td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      {{else}}
+        <span>Nenhum registro encontrado.</span>
+      {{/if}}
+    </div>
+  </main>
+</body>
+</html>

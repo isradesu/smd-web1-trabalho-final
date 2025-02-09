@@ -19,11 +19,6 @@ body {
     color: #333;
   }
   
-  form {
-    display: flex;
-    flex-direction: column;
-  }
-  
   form input, form button {
     margin-bottom: 10px;
     padding: 10px;
@@ -40,5 +35,50 @@ body {
   
   form button:hover {
     background-color: #4cae4c;
+  }
+
+  .produtos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: left;
+  }
+  
+  .produtos-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .produto {
+    width: 250px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+  }
+  
+  .produto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .produto-imagem {
+    margin-bottom: 15px;
+  }
+  
+  .produto-imagem img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;  /* Faz a imagem preencher o espaço sem distorcer */
+    border-radius: 8px;
+  }
+  
+  .produto p {
+    margin: 8px 0;
   }
   

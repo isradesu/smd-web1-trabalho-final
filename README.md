@@ -35,7 +35,7 @@ $ npm install express --legacy-peer-deps
 ```
 Remove o auth.controller.ts e deixa somente o autenticacao.controller.ts
 
-Executar o script DDL na Quary Tool do PgAdmin.
+Executar o script DDL na Query Tool do PgAdmin.
 
 ## Compilação e Execução do projeto
 

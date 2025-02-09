@@ -6,7 +6,14 @@
     <link rel="stylesheet" href="/assets/css/styles.css">
   </head>
   <body>
-    <ul>
+    <ul style="display: flex; align-items: center; list-style-type: none; padding: 0;">
+      <!-- Logo como link para a home -->
+      <li style="margin-right: 20px;">
+        <a href="/">
+          <img src="https://via.placeholder.com/100x40" alt="Logo" style="height: 40px; width: auto;">
+        </a>
+      </li>
+
       <li>
         {{#if session.usuarioId}}
           <form action="/autenticacao/logout" method="POST" style="margin-top: 20px;">
@@ -18,33 +25,31 @@
       </li>
 
       <li>
-        <a href="/usuarios/criar" target="_blank">Criar usuário</a>
+        <a href="/usuarios/criar" target="_blank" style="margin-left: 15px;">Criar usuário</a>
       </li>
     </ul>
 
     <h2>Produtos Disponíveis</h2>
-<div class="produtos-container">
-  {{#if produtos}}
-    <div class="produtos-list">
-      {{#each produtos}}
-        <div class="produto">
-          <!-- Placeholder de Imagem -->
-          <div class="produto-imagem">
-            <img src="https://via.placeholder.com/150" alt="Imagem do produto">
-          </div>
+    <div class="produtos-container">
+      {{#if produtos}}
+        <div class="produtos-list">
+          {{#each produtos}}
+            <div class="produto">
+              <!-- Placeholder de Imagem -->
+              <div class="produto-imagem">
+                <img src="https://via.placeholder.com/150" alt="Imagem do produto">
+              </div>
 
-          <p><strong>Descrição:</strong> {{this.descricao}}</p>
-          <p><strong>Preço:</strong> R${{this.preco}}</p>
-          <p><strong>Quantidade:</strong> {{this.quantidade}}</p>
+              <p><strong>Descrição:</strong> {{this.descricao}}</p>
+              <p><strong>Preço:</strong> R${{this.preco}}</p>
+              <p><strong>Quantidade:</strong> {{this.quantidade}}</p>
+            </div>
+          {{/each}}
         </div>
-      {{/each}}
+      {{else}}
+        <span>Nenhum registro encontrado.</span>
+      {{/if}}
     </div>
-  {{else}}
-    <span>Nenhum registro encontrado.</span>
-  {{/if}}
-</div>
-
-
 
     <br>
   </body>

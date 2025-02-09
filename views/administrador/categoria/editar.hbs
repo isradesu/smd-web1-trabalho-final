@@ -7,6 +7,11 @@
 </head>
 <body>
   <div class="container">
+    <li style="margin-right: 20px;">
+        <a href="/">
+          <img src="https://via.placeholder.com/100x40" alt="Logo" style="height: 40px; width: auto;">
+        </a>
+      </li>
     <h1>Editar Categoria</h1>
     <form action="/categoria/atualizar/{{categoria.id}}" method="POST">
       <input type="text" name="nome" value="{{categoria.nome}}" placeholder="Nome da Categoria" required />

@@ -24,9 +24,9 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Passo a passo para execução da aplicação do programa da disciplina de Programação Web 1 - 2024.2
 
-## Project setup
+## Setup do Projeto
 
 ```bash
 $ npm install --force
@@ -35,9 +35,9 @@ $ npm install express --legacy-peer-deps
 ```
 Remove o auth.controller.ts e deixa somente o autenticacao.controller.ts
 
-Execute the SQL Script on your PgAdmin software.
+Executar o script DDL na Quary Tool do PgAdmin.
 
-## Compile and run the project
+## Compilação e Execução do projeto
 
 ```bash
 # development
